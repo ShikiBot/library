@@ -9,10 +9,8 @@ def index(request):
     # Доступные книги (статус = 'a')
     num_instances_available=BookInstance.objects.filter(status__exact='a').count()
     num_authors=Author.objects.count() # Метод 'all()' применен по умолчанию.
-    #num_genre_with_word = Genre.objects.filter(title__exact='Научная литература').count()
-    #num_books_with_word = Book.objects.filter(name='a').count()
-    num_genre_with_word = 1
-    num_books_with_word = 10
+    num_genre_with_word = Genre.objects.filter(name__contains='Научная').count()
+    num_books_with_word = Book.objects.filter(title__contains='Надежность').count()
 
     # Отрисовка HTML-шаблона index.html с данными внутри
     # переменной контекста context
