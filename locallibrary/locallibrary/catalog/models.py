@@ -7,7 +7,8 @@ import uuid
 
 class Genre(models.Model):
     name = models.CharField(
-        max_length=200, help_text="Введите жанр книги (документальная, роман и т. д.)")
+        max_length=200,
+        help_text="Введите жанр книги (документальная, роман и т. д.)")
 
     # Возврат строки для представления объекта модели
     def __str__(self):
@@ -17,9 +18,13 @@ class Genre(models.Model):
 
 
 class Book(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(
+        max_length=200)
     # Используется Foreign Key, потому что у книги может быть только один автор, но у авторов может быть несколько книг
-    author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
+    author = models.ForeignKey(
+        'Author',
+        on_delete=models.SET_NULL,
+        null=True)
     summary = models.TextField(
         max_length=1000,
         help_text="Введите краткое описание книги")
