@@ -2,7 +2,6 @@
 
 {% block content %}
     <h1>Book List</h1>
-
     {% if object_list %}
     <ul>
       {% for book in object_list %}
@@ -12,6 +11,6 @@
       {% endfor %}
     </ul>
     {% else %}
-      <p>There are no books in the library.</p>
+      <p>В библиотеке нет книг.</p>
     {% endif %}     
 {% endblock %}

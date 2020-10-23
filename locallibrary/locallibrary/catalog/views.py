@@ -65,7 +65,7 @@ class BookDetailView(generic.DetailView):
         try:
             book_id=Book.objects.get(pk=pk)
         except Book.DoesNotExist:
-            raise Http404("Book does not exist")
+            raise Http404("Книги не существует")
         
         return render(
             request,
@@ -76,12 +76,13 @@ class BookDetailView(generic.DetailView):
 class AuthorsListView(generic.ListView):
     model = Author
     # ваше собственное имя переменной контекста в шаблоне
-    context_object_name = 'my_authors_list'
+    context_object_name = 'my_author_list'
     # Определение имени вашего шаблона и его расположения
     template_name = 'authors/my_arbitrary_template_name_list.html'
     paginate_by = 3 
 
     def get_queryset(self):
+        print(Author.objects.all())
         return Author.objects.all()
 
     def get_context_data(self, **kwargs):

@@ -124,10 +124,10 @@ class Author(models.Model):
         null=True,
         blank=True,
         help_text='Дата смерти (необязательно)')
-
+#TODO почини ссылку
     # Возвращает URL-адрес для доступа к конкретному экземпляру автора
-    def get_absolute_url(self):
-        return reverse('author-detail', args=[str(self.id)])
+    #def get_absolute_url(self):
+    #    return reverse('author-detail', args=[str(self.id)])
 
     # Возврат строки для представления объекта модели
     def __str__(self):
