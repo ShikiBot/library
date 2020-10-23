@@ -43,6 +43,7 @@ class BookListView(generic.ListView):
     queryset = Book.objects.filter(title__icontains='war')[:5]
     # Определение имени вашего шаблона и его расположения
     template_name = 'books/my_arbitrary_template_name_list.html'
+    paginate_by = 3
 
     def get_queryset(self):
         # Получить 5 книг, содержащих 'war' в заголовке
@@ -58,4 +59,34 @@ class BookListView(generic.ListView):
 
 
 class BookDetailView(generic.DetailView):
-    model = Book
+    model = Book    
+
+    def book_detail_view(self, request,pk):
+        try:
+            book_id=Book.objects.get(pk=pk)
+        except Book.DoesNotExist:
+            raise Http404("Book does not exist")
+        
+        return render(
+            request,
+            'catalog/book_detail.html',
+            context={'book':book_id,}
+        )
+
+class AuthorsListView(generic.ListView):
+    model = Author
+    # ваше собственное имя переменной контекста в шаблоне
+    context_object_name = 'my_authors_list'
+    # Определение имени вашего шаблона и его расположения
+    template_name = 'authors/my_arbitrary_template_name_list.html'
+    paginate_by = 3 
+
+    def get_queryset(self):
+        return Author.objects.all()
+
+    def get_context_data(self, **kwargs):
+        # В первую очередь получаем базовую реализацию контекста
+        context = super(AuthorsListView, self).get_context_data(**kwargs)
+        # Добавляем новую переменную к контексту и иниуиализируем ее некоторым значением
+        context['some_data'] = 'Это всего лишь некоторые данные'
+        return context
