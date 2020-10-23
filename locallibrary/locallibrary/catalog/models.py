@@ -46,7 +46,6 @@ class Book(models.Model):
         return ', '.join([genre.name for genre in self.genre.all()[:3]])
 
     display_genre.short_description = 'Genre'
-# TODO: почиеить get_absolute_url
     # Возврат URL-адреса для доступа к конкретному экземпляру книги.
 
     def get_absolute_url(self):
