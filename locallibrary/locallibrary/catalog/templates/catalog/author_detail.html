@@ -4,13 +4,14 @@
   <h1>Автор: {{ author.last_name }}, {{ author.first_name }}</h1>
 
   <p>{{ author.date_of_birth }} - {% if author.date_of_death != None %}{{author.date_of_death}}{% endif %}</p>
-
+<!--
   <div style="margin-left:20px;margin-top:20px">
     <h4>Книги</h4>
-    <!--TODO: понять как работает этот цикл-->
+    TODO: понять как работает этот цикл
     {% for instance in author.all %}
-    <p><a href="{% url 'book-detail' instance.book.pk %}"> {{instance.title}} </a></p>
-    <p>instance.summary</p>
+      <p><a href="{% url 'book-detail' instance.book.pk %}"> {{instance.title}} </a></p>
+      <p>instance.summary</p>
     {% endfor %}
   </div>
+-->
 {% endblock %}
