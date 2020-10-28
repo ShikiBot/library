@@ -63,14 +63,14 @@ class BookDetailView(generic.DetailView):
 
     def book_detail_view(self, request,pk):
         try:
-            book_id=Book.objects.get(pk=pk)
+            author_id=Book.objects.get(pk=pk)
         except Book.DoesNotExist:
             raise Http404("Книги не существует")
         
         return render(
             request,
             'catalog/book_detail.html',
-            context={'book':book_id,}
+            context={'book':author_id,}
         )
 
 class AuthorsListView(generic.ListView):
@@ -91,3 +91,18 @@ class AuthorsListView(generic.ListView):
         # Добавляем новую переменную к контексту и иниуиализируем ее некоторым значением
         context['some_data'] = 'Это всего лишь некоторые данные'
         return context
+
+class AuthorsDetailView(generic.DetailView):
+    model = Author    
+
+    def author_detail_view(self, request,pk):
+        try:
+            author_id=Author.objects.get(pk=pk)
+        except Author.DoesNotExist:
+            raise Http404("Книги не существует")
+        
+        return render(
+            request,
+            'catalog/author_detail.html',
+            context={'author':author_id,}
+        )
