@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список авторов</h1>
+    {% if my_author_list %}
+    <ul>
+      {% for author in my_author_list %}
+      <li>
+        <a href="{{author.get_absolute_url}}">{{author.last_name}}, {{author.first_name}} ({{author.date_of_birth}} - {% if author.date_of_death != None %}{{author.date_of_death}}{% endif %})</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>В Базе Данных нет авторов.</p>
+    {% endif %}     
+{% endblock %}
