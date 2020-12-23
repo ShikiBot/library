@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Book, Author, BookInstance, Genre
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin 
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -11,6 +12,7 @@ from .forms import RenewBookForm
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Author
+from .models import Book
 
 # Функция отображения для домашней страницы сайта.
 
@@ -172,14 +174,33 @@ def renew_book_librarian(request, pk):
     return render(request, 'catalog/book_renew_librarian.html', {'form': form, 'bookinst':book_inst})
 
 class AuthorCreate(CreateView):
-    model = Author
+    permission_required = 'catalog.can_mark_returned'
+    model = Author    
     fields = '__all__'
     initial={'date_of_death':datetime.date.today,}
 
 class AuthorUpdate(UpdateView):
     model = Author
+    permission_required = 'catalog.can_mark_returned'
     fields = ['first_name','last_name','date_of_birth','date_of_death']
 
 class AuthorDelete(DeleteView):
     model = Author
+    permission_required = 'catalog.can_mark_returned'
     success_url = reverse_lazy('authors')
+
+class BookCreate(CreateView):
+    permission_required = 'catalog.can_mark_returned'
+    model = Book    
+    fields = '__all__'
+    #initial={'date_of_death':datetime.date.today,}
+
+class BookUpdate(UpdateView):
+    model = Book
+    permission_required = 'catalog.can_mark_returned'
+    fields = ['title','author','summary','isbn','genre']
+
+class BookDelete(DeleteView):
+    model = Book
+    permission_required = 'catalog.can_mark_returned'
+    success_url = reverse_lazy('books')

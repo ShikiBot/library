@@ -30,6 +30,9 @@
                                 <p></p>
                                 <li>Прочее</li> 
                                 <li><a href="{% url 'all-borrowed' %}">Все занятые книги</a></li>
+                                {% if perms.admin.can_view_log_entry %}
+                                    <li><a href="{% url 'authors' %}">админка</a></li>
+                                {% endif %}
                             {% endif %}
                         {% else %}
                             <li><a href="{% url 'login'%}">Залогиниться</a></li>   
