@@ -26,9 +26,11 @@
                             <li>Пользователь: {{ user.get_username }}</li>
                             <li><a href="{% url 'my-borrowed' %}">Занятые книги</a></li>
                             <li><a href="{% url 'logout'%}">Разлогиниться</a></li>  
-                            <!--{% if perms.catalog.can_mark_returned %}
-                                 
-                            {% endif %} -->
+                            {% if perms.catalog.can_mark_returned %}
+                                <p></p>
+                                <li>Прочее</li> 
+                                <li><a href="{% url 'all-borrowed' %}">Все занятые книги</a></li>
+                            {% endif %}
                         {% else %}
                             <li><a href="{% url 'login'%}">Залогиниться</a></li>   
                         {% endif %}

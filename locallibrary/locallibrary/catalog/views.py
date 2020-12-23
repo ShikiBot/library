@@ -120,7 +120,7 @@ class AuthorsDetailView(generic.DetailView):
             context={'author':author_id,}
         )
 
-class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
     """
     Generic class-based view listing books on loan to current user. 
     """
@@ -130,6 +130,17 @@ class LoanedBooksByUserListView(LoginRequiredMixin,generic.ListView):
     
     def get_queryset(self):
         return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+
+class LoanedBooks(LoginRequiredMixin, generic.ListView):
+    """
+    Generic class-based view listing books on loan to current user. 
+    """
+    model = BookInstance
+    template_name ='catalog/bookinstance_list_borrowed.html'
+    paginate_by = 10
+    
+    def get_queryset(self):
+        return BookInstance.objects.filter(status__exact='o').order_by('due_back')
 
 @permission_required('catalog.can_mark_returned')
 def renew_book_librarian(request, pk):
@@ -163,7 +174,7 @@ def renew_book_librarian(request, pk):
 class AuthorCreate(CreateView):
     model = Author
     fields = '__all__'
-    initial={'date_of_death':'12/10/2016',}
+    initial={'date_of_death':datetime.date.today,}
 
 class AuthorUpdate(UpdateView):
     model = Author
