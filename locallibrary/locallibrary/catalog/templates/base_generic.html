@@ -21,6 +21,14 @@
                         <li><a href="{% url 'index' %}">Главная</a></li>
                         <li><a href="{% url 'books' %}">Все книги</a></li>
                         <li><a href="{% url 'authors' %}">Все авторы</a></li>
+                        {% if user.is_authenticated %}
+                            <p></p>
+                            <li>Пользователь: {{ user.get_username }}</li>
+                            <li><a href="{% url 'my-borrowed' %}">Занятые книги</a></li>
+                            <li><a href="{% url 'logout'%}">Разлогиниться</a></li>   
+                        {% else %}
+                            <li><a href="{% url 'login'%}">Залогиниться</a></li>   
+                        {% endif %}
                     </ul>
                     {% endblock %}
                 </div>
